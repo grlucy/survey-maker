@@ -1,0 +1,238 @@
+{
+  "resource_version": 21,
+  "metadata": {
+    "version": 3,
+    "sources": [
+      {
+        "name": "svm",
+        "kind": "postgres",
+        "tables": [
+          {
+            "table": {
+              "name": "lkp_question_type",
+              "schema": "svm"
+            }
+          },
+          {
+            "table": {
+              "name": "question",
+              "schema": "svm"
+            },
+            "object_relationships": [
+              {
+                "name": "lkp_question_type",
+                "using": {
+                  "foreign_key_constraint_on": "question_type"
+                }
+              },
+              {
+                "name": "survey",
+                "using": {
+                  "foreign_key_constraint_on": "survey_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "responses",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "question_id",
+                    "table": {
+                      "name": "response",
+                      "schema": "svm"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "user_responses",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "question_id",
+                    "table": {
+                      "name": "user_response",
+                      "schema": "svm"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "response",
+              "schema": "svm"
+            },
+            "object_relationships": [
+              {
+                "name": "question",
+                "using": {
+                  "foreign_key_constraint_on": "question_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "user_responses",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "selected_response",
+                    "table": {
+                      "name": "user_response",
+                      "schema": "svm"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "survey",
+              "schema": "svm"
+            },
+            "object_relationships": [
+              {
+                "name": "creator",
+                "using": {
+                  "foreign_key_constraint_on": "creator_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "questions",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "survey_id",
+                    "table": {
+                      "name": "question",
+                      "schema": "svm"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "user_surveys",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "survey_id",
+                    "table": {
+                      "name": "user_survey",
+                      "schema": "svm"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "user",
+              "schema": "svm"
+            },
+            "array_relationships": [
+              {
+                "name": "surveys",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "creator_id",
+                    "table": {
+                      "name": "survey",
+                      "schema": "svm"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "user_surveys",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "user_id",
+                    "table": {
+                      "name": "user_survey",
+                      "schema": "svm"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "user_response",
+              "schema": "svm"
+            },
+            "object_relationships": [
+              {
+                "name": "question",
+                "using": {
+                  "foreign_key_constraint_on": "question_id"
+                }
+              },
+              {
+                "name": "response",
+                "using": {
+                  "foreign_key_constraint_on": "selected_response"
+                }
+              },
+              {
+                "name": "user_survey",
+                "using": {
+                  "foreign_key_constraint_on": "user_survey_id"
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "user_survey",
+              "schema": "svm"
+            },
+            "object_relationships": [
+              {
+                "name": "survey",
+                "using": {
+                  "foreign_key_constraint_on": "survey_id"
+                }
+              },
+              {
+                "name": "user",
+                "using": {
+                  "foreign_key_constraint_on": "user_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "user_responses",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "user_survey_id",
+                    "table": {
+                      "name": "user_response",
+                      "schema": "svm"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "configuration": {
+          "connection_info": {
+            "database_url": {
+              "from_env": "PG_DATABASE_URL"
+            },
+            "isolation_level": "read-committed",
+            "use_prepared_statements": false
+          }
+        },
+        "customization": {
+          "naming_convention": "hasura-default"
+        }
+      }
+    ]
+  }
+}
