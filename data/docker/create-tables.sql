@@ -2,6 +2,7 @@ CREATE SCHEMA IF NOT EXISTS svm;
 
 CREATE TABLE IF NOT EXISTS svm.user (
  user_id SERIAL PRIMARY KEY,
+ -- role_id taker/creator
  email TEXT NOT NULL,
  first_name VARCHAR(30),
  last_name VARCHAR(50),
