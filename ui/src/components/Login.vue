@@ -7,12 +7,11 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import { useAuth0 } from '@auth0/auth0-vue'
 
 @Options({
-    props: {
-        msg: String
-    }
+  props: {
+    msg: String
+  }
 })
 export default class Login extends Vue {
     email = ''
@@ -20,8 +19,8 @@ export default class Login extends Vue {
 
     msg!: string
 
-    login() {
-        this.$auth0.loginWithRedirect()
+    login () {
+      this.$auth0.loginWithRedirect()
     }
 }
 </script>

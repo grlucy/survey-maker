@@ -7,14 +7,14 @@
 import { useAuth0 } from '@auth0/auth0-vue'
 
 export default {
- setup() {
-  const { logout } = useAuth0()
+  setup () {
+    const { logout } = useAuth0()
 
-  return {
-   logout: () => {
-    logout({ returnTo: window.location.origin, localOnly: false })
-   }
+    return {
+      logout: () => {
+        logout({ returnTo: window.location.origin, localOnly: false })
+      }
+    }
   }
- }
 }
 </script>
