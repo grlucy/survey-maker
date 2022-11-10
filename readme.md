@@ -33,3 +33,12 @@ query getSurvey ($surveyId: Int!) {
   }
 }
 ```
+
+## UI
+
+In the `/ui` directory you will need a .env file with the following variables:
+
+```
+VUE_APP_AUTH0_DOMAIN=
+VUE_APP_AUTH0_CLIENT_ID=
+```

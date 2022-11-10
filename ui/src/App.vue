@@ -3,17 +3,21 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
-  <LogOut />
+  <LogOut v-if="isAuthenticated" />
   <router-view/>
 </template>
 
 <script>
+  import { useAuth0 } from '@auth0/auth0-vue'
   import LogOut from './components/LogOut.vue'
 
   export default {
-    name: 'app',
     components: {
       LogOut
+    },
+    setup(){
+      const { isAuthenticated } = useAuth0()
+      return { isAuthenticated }
     }
   }
 </script>
