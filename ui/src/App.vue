@@ -3,8 +3,20 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
+  <LogOut />
   <router-view/>
 </template>
+
+<script>
+  import LogOut from './components/LogOut.vue'
+
+  export default {
+    name: 'app',
+    components: {
+      LogOut
+    }
+  }
+</script>
 
 <style>
 #app {
