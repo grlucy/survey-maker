@@ -1,8 +1,7 @@
 CREATE SCHEMA IF NOT EXISTS svm;
 
 CREATE TABLE IF NOT EXISTS svm.user (
- user_id SERIAL PRIMARY KEY,
- -- role_id taker/creator
+ auth0_id VARCHAR(30) UNIQUE PRIMARY KEY,
  email TEXT NOT NULL,
  first_name VARCHAR(30),
  last_name VARCHAR(50),
@@ -16,9 +15,20 @@ CREATE TABLE IF NOT EXISTS svm.user (
  number_of_children INTEGER
 );
 
+CREATE TABLE IF NOT EXISTS svm.lkp_roles (
+ role_id SERIAL PRIMARY KEY,
+ name VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS svm.user_roles (
+ role_id SERIAL PRIMARY KEY,
+ user_id VARCHAR(30) NOT NULL REFERENCES svm.user(auth0_id),
+ role INTEGER NOT NULL REFERENCES svm.lkp_roles(role_id)
+);
+
 CREATE TABLE IF NOT EXISTS svm.survey (
  survey_id SERIAL PRIMARY KEY,
- creator_id INTEGER NOT NULL REFERENCES svm.user(user_id),
+ creator_id VARCHAR(30) NOT NULL REFERENCES svm.user(auth0_id),
  survey_title VARCHAR(100) NOT NULL,
  survey_short_description VARCHAR(200),
  survey_long_description TEXT
@@ -27,7 +37,7 @@ CREATE TABLE IF NOT EXISTS svm.survey (
 CREATE TABLE IF NOT EXISTS svm.user_survey (
  user_survey_id SERIAL PRIMARY KEY,
  survey_id INTEGER NOT NULL REFERENCES svm.survey(survey_id),
- user_id INTEGER NOT NULL REFERENCES svm.user(user_id) 
+ user_id VARCHAR(30) NOT NULL REFERENCES svm.user(auth0_id) 
 );
 
 CREATE TABLE IF NOT EXISTS svm.lkp_question_type (
