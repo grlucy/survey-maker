@@ -24,8 +24,8 @@
 import gql from 'graphql-tag'
 import { useQuery } from '@vue/apollo-composable'
 export default {
-  setup() {
-    const {result} = useQuery(gql`
+  setup () {
+    const { result } = useQuery(gql`
       query {
         svm_user {
           email
@@ -37,7 +37,7 @@ export default {
         }
       }
     `)
-    return {result}
-  },
+    return { result }
+  }
 }
 </script>

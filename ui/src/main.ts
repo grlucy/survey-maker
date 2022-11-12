@@ -7,11 +7,11 @@ import router from './router'
 import store from './store'
 
 createApp({
-  setup() {
+  setup () {
     provide(DefaultApolloClient, apolloClient)
   },
-  render: () => h(App),
- }).use(store).use(router).use(
+  render: () => h(App)
+}).use(store).use(router).use(
   createAuth0({
     domain: process.env.VUE_APP_AUTH0_DOMAIN,
     client_id: process.env.VUE_APP_AUTH0_CLIENT_ID,
