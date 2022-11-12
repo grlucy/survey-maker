@@ -15,5 +15,29 @@
         <label for="radio1">Radio</label>
       </p>
     </form>
+    <hr />
+    <p>user roles: {{result}}</p>
   </div>
 </template>
+
+<script lang="ts">
+import gql from 'graphql-tag'
+import { useQuery } from '@vue/apollo-composable'
+export default {
+  setup() {
+    const {result} = useQuery(gql`
+      query {
+        svm_user {
+          email
+                user_roles {
+                  lkp_role {
+              name
+            }
+          }
+        }
+      }
+    `)
+    return {result}
+  },
+}
+</script>
