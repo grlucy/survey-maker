@@ -1,9 +1,17 @@
-INSERT INTO svm.user (email, first_name, last_name, country) VALUES 
- ('pat.smith@example.com', 'Patricia', 'Smith', 'United States'),
- ('tom.harris@example.com', 'Tom', 'Harris', 'Canada');
+INSERT INTO svm.user (auth0_id, email, first_name, last_name, country) VALUES 
+ ('auth0|636ea5c3c10638717037b23d', 'pat.smith@example.com', 'Patricia', 'Smith', 'United States'),
+ ('auth0|636ea701f266b3ae82accffa', 'tom.harris@example.com', 'Tom', 'Harris', 'Canada');
+
+ INSERT INTO svm.lkp_roles (name) VALUES
+  ('Creator'),
+  ('Taker');
+
+ INSERT INTO svm.user_roles (user_id, role) VALUES
+  ('auth0|636ea5c3c10638717037b23d', 1),
+  ('auth0|636ea701f266b3ae82accffa', 2);
 
 INSERT INTO svm.survey (creator_id, survey_title, survey_short_description) VALUES 
- (1, 'Cereal Survey', '5 questions about breakfast cereals');
+ ('auth0|636ea5c3c10638717037b23d', 'Cereal Survey', '5 questions about breakfast cereals');
 
 INSERT INTO svm.lkp_question_type (description) VALUES
  ('short text'),
@@ -33,7 +41,7 @@ INSERT INTO svm.response (question_id, response_text, response_value) VALUES
  (3, null, 1), (3, null, 2), (3, null, 3), (3, null, 4), (3, null, 5);
 
 INSERT INTO svm.user_survey (survey_id, user_id) VALUES
- (1, 2);
+ (1, 'auth0|636ea701f266b3ae82accffa');
 
 INSERT INTO svm.user_response (user_survey_id, question_id, selected_response) VALUES
  (1, 1, 2),

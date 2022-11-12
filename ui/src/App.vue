@@ -3,8 +3,41 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
-  <router-view/>
+  <LogOut v-if="isAuthenticated" />
+  <Login v-else />
+  <p>
+    {{user}}
+  </p>
+  <router-view />
 </template>
+
+<script>
+import Login from './components/Login.vue'
+import LogOut from './components/LogOut.vue'
+import { useAuth0 } from '@auth0/auth0-vue'
+
+export default {
+  name: 'app',
+  components: {
+    Login,
+    LogOut
+  },
+  data: function () {
+    return {
+      accessToken: this.accessToken,
+      user: this.user,
+      isAuthenticated: this.isAuthenticated
+    }
+  },
+  mounted: async function () {
+    const { getAccessTokenSilently, user, isAuthenticated } = useAuth0()
+
+    this.user = user
+    this.isAuthenticated = isAuthenticated
+    this.accessToken = await getAccessTokenSilently()
+  }
+}
+</script>
 
 <style>
 #app {

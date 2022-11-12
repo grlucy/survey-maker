@@ -1,5 +1,5 @@
 {
-  "resource_version": 21,
+  "resource_version": 6,
   "metadata": {
     "version": 3,
     "sources": [
@@ -10,6 +10,12 @@
           {
             "table": {
               "name": "lkp_question_type",
+              "schema": "svm"
+            }
+          },
+          {
+            "table": {
+              "name": "lkp_roles",
               "schema": "svm"
             }
           },
@@ -146,6 +152,18 @@
                 }
               },
               {
+                "name": "user_roles",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "user_id",
+                    "table": {
+                      "name": "user_roles",
+                      "schema": "svm"
+                    }
+                  }
+                }
+              },
+              {
                 "name": "user_surveys",
                 "using": {
                   "foreign_key_constraint_on": {
@@ -181,6 +199,26 @@
                 "name": "user_survey",
                 "using": {
                   "foreign_key_constraint_on": "user_survey_id"
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "user_roles",
+              "schema": "svm"
+            },
+            "object_relationships": [
+              {
+                "name": "lkp_role",
+                "using": {
+                  "foreign_key_constraint_on": "role"
+                }
+              },
+              {
+                "name": "user",
+                "using": {
+                  "foreign_key_constraint_on": "user_id"
                 }
               }
             ]
