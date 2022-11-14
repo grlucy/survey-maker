@@ -1,14 +1,22 @@
-import { createStore } from 'vuex'
+import { defineStore } from 'pinia'
 
-export default createStore({
-  state: {
+export const useUserStore = defineStore('userStore', {
+  // arrow function recommended for full type inference
+  state: () => {
+    return {
+      accessToken: null,
+      user: null,
+      isAuthenticated: false
+    }
   },
   getters: {
-  },
-  mutations: {
+
   },
   actions: {
-  },
-  modules: {
+    setUserProps (accessToken: any, user: any, isAuthenticated: boolean) {
+      this.accessToken = accessToken
+      this.user = user
+      this.isAuthenticated = isAuthenticated
+    }
   }
 })
