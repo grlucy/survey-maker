@@ -6,7 +6,7 @@
   <LogOut v-if="isAuthenticated" />
   <Login v-else />
   <p>
-    {{                                                                                                                              user                                                                                                                              }}
+    {{ user }}
   </p>
   <router-view />
 </template>

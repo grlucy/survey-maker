@@ -65,13 +65,14 @@
       <input type="reset" name="reset" value="Reset">
     </form>
     <hr />
-    <p>user roles: {{result}}</p>
+    <p>postgres user: {{result?.user?.[0]}}</p>
   </div>
 </template>
 
 <script lang="ts">
 import gql from 'graphql-tag'
 import { useQuery } from '@vue/apollo-composable'
+import { useUserStore } from '../store/index'
 import { countryList } from '../enums/countries'
 import { raceList } from '../enums/races'
 import { educationLevels } from '../enums/educationLevels'
@@ -91,19 +92,36 @@ export default {
     }
   },
   setup () {
-    const { result } = useQuery(gql`
-      query {
-        svm_user {
+    const userStore = useUserStore()
+    const { result }: {result: any} = useQuery(gql`
+      query getUser($userId: String!) {
+        user: svm_user(where: {auth0_id: {_eq: $userId}}) {
           email
-                user_roles {
-                  lkp_role {
+          user_roles {
+            lkp_role {
               name
             }
           }
+          country
+          date_of_birth
+          education_level
+          first_name
+          gender
+          income_level
+          last_name
+          marital_status
+          number_of_children
+          race
         }
       }
-    `)
-    return { result }
+    `, {
+      userId: userStore.user?.sub
+    })
+
+    return {
+      result,
+      userStore
+    }
   }
 }
 </script>
