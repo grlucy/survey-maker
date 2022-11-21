@@ -5,7 +5,7 @@ export const useUserStore = defineStore('userStore', {
   state: () => {
     return {
       accessToken: null as string | null,
-      user: null as {sub: string} | null,
+      user: null as { sub: string } | null,
       isAuthenticated: false as boolean
     }
   },
@@ -13,7 +13,11 @@ export const useUserStore = defineStore('userStore', {
 
   },
   actions: {
-    setUserProps (accessToken: string | null, user: {sub: string} | null, isAuthenticated: boolean) {
+    setUserProps (
+      accessToken: string | null,
+      user: { sub: string } | null,
+      isAuthenticated: boolean
+    ) {
       this.accessToken = accessToken
       this.user = user
       this.isAuthenticated = isAuthenticated
