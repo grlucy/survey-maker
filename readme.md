@@ -44,3 +44,15 @@ VUE_APP_AUTH0_CLIENT_ID=
 VUE_APP_AUTH0_AUDIENCE=
 VUE_APP_GRAPHQL_ENDPOINT=
 ```
+
+Generate graphql-schema.json in the `/ui` directory:
+
+```
+npx apollo service:download --endpoint=http://localhost:8085/v1/graphql graphql-schema.json --header "X-Hasura-Admin-Secret: myadminsecretkey"
+```
+
+Generate graphql types in the `/ui` directory:
+
+```
+npx apollo service:download --endpoint=http://localhost:8085/v1/graphql graphql-schema.json --header "X-Hasura-Admin-Secret: myadminsecretkey"
+```

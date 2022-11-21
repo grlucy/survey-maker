@@ -6,7 +6,7 @@
   <LogOut v-if="isAuthenticated" />
   <Login v-else />
   <p>
-    {{user}}
+    {{ user }}
   </p>
   <router-view />
 </template>
@@ -15,6 +15,8 @@
 import Login from './components/Login.vue'
 import LogOut from './components/LogOut.vue'
 import { useAuth0 } from '@auth0/auth0-vue'
+import { mapState } from 'pinia'
+import { useUserStore } from './store/index'
 
 export default {
   name: 'app',
@@ -22,19 +24,26 @@ export default {
     Login,
     LogOut
   },
-  data: function () {
+  setup: function () {
+    const userStore = useUserStore()
+
     return {
-      accessToken: this.accessToken,
-      user: this.user,
-      isAuthenticated: this.isAuthenticated
+      userStore
     }
+  },
+  computed: {
+    ...mapState(useUserStore, ['accessToken', 'isAuthenticated', 'user'])
   },
   mounted: async function () {
     const { getAccessTokenSilently, user, isAuthenticated } = useAuth0()
 
-    this.user = user
-    this.isAuthenticated = isAuthenticated
-    this.accessToken = await getAccessTokenSilently()
+    this.userStore.$patch(
+      {
+        accessToken: await getAccessTokenSilently(),
+        user,
+        isAuthenticated
+      }
+    )
   }
 }
 </script>
