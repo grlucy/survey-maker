@@ -54,5 +54,5 @@ npx apollo service:download --endpoint=http://localhost:8085/v1/graphql graphql-
 Generate graphql types in the `/ui` directory:
 
 ```
-npx apollo service:download --endpoint=http://localhost:8085/v1/graphql graphql-schema.json --header "X-Hasura-Admin-Secret: myadminsecretkey"
+npx apollo codegen:generate --localSchemaFile=graphql-schema.json --target=typescript --tagName=gql --header "X-Hasura-Admin-Secret: myadminsecretkey"
 ```

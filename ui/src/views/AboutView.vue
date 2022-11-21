@@ -72,7 +72,7 @@
 import { useMutation, useQuery } from '@vue/apollo-composable'
 import { computed } from 'vue'
 import { getUser } from '../graphql-operations/queries/getUser'
-import type { getUser_user } from '../graphql-operations/queries/__generated__/getUser'
+import type { svm_user_set_input } from '../../__generated__/globalTypes'
 import { updateUser } from '../graphql-operations/mutations/updateUser'
 import { useUserStore } from '../store/index'
 import { countryList } from '../enums/countries'
@@ -96,9 +96,9 @@ export default {
   methods: {
     handleUserSubmit (submitEvent: Event) {
       const target = submitEvent.target as HTMLFormElement
-      const userObj: getUser_user = {}
+      const userObj: svm_user_set_input = {}
       for (const el of target.elements) {
-        const { name, value }: { name: keyof getUser_user | 'creator' | 'taker', value: string | boolean | null } = el
+        const { name, value }: { name: keyof svm_user_set_input | 'creator' | 'taker', value: string | boolean | null } = el
         if (name === 'creator' || name === 'taker') {
           // TO DO: handle updating roles
           console.log(name, el.checked)
@@ -114,7 +114,7 @@ export default {
   },
   setup () {
     const userStore = useUserStore()
-    const { result }: {result: any} = useQuery(getUser, {
+    const { result }: { result: any } = useQuery(getUser, {
       userId: userStore.user?.sub
     })
     const user = computed(() => result.value?.user?.[0] ?? {})
